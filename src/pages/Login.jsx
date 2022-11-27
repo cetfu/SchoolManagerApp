@@ -36,7 +36,7 @@ const Login = () => {
         case 1:
           let token = reqData.accessToken
           await EncryptedStorage.setItem("accessToken", token)
-          dispatch(login({token: token, userId: reqData.userId, studentNumber: reqData.studentNumber}))
+          dispatch(login({token: token, userId: reqData.userId, studentNumber: reqData.studentNumber, name: reqData.name}))
           break
         default:
           setMessage(reqData.message)

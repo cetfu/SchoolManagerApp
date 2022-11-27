@@ -1,13 +1,13 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import CustomAnnouncements from "../../pages/CustomAnnouncements";
-import MainAnnouncements from "../../pages/MainAnnouncements";
+import ProfilePage from "../../pages/Tab/Profile";
 import { WIDTH } from "../../constants";
 import { useTheme } from "@react-navigation/native";
 import Profile from "../../assets/person.svg"
 import Microphone from "../../assets/microphone.svg"
 import Main from "../../assets/home.svg"
 import DrawerNav from "../Drawer/Drawer";
+import PdrAnnouncements from "../../pages/Tab/PdrAnnouncements";
 
 const Tab = createBottomTabNavigator()
 
@@ -43,8 +43,8 @@ const MainTab = () =>{
          }}
        />
        <Tab.Screen
-         name={"CustomAnnouncements"}
-         component={CustomAnnouncements}
+         name={"PdrAnnouncements"}
+         component={PdrAnnouncements}
          options={{
            tabBarIcon: ({focused}) =>(
              <>
@@ -60,7 +60,7 @@ const MainTab = () =>{
        />
        <Tab.Screen
          name={"Profile"}
-         component={CustomAnnouncements}
+         component={ProfilePage}
          options={{
            tabBarIcon: ({focused}) =>(
              <>

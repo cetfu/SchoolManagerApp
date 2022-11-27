@@ -6,6 +6,7 @@ import { MyTheme } from "./themes/themes";
 import NavigationController from "./navigation/NavigationController";
 
 const App = () => {
+
   return (
     <Provider store={store}>
       <NavigationContainer theme={MyTheme}>

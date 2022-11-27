@@ -7,7 +7,7 @@ import School from "../../assets/school.svg"
 import ExamResults from "../../pages/Drawer/ExamResults";
 import WeeklySubjects from "../../pages/Drawer/WeeklySubjects";
 import ClassPrograms from "../../pages/Drawer/ClassPrograms";
-import Voting from "../../pages/Drawer/Voting";
+import Surveys from "../../pages/Drawer/Surveys";
 import PdrAppointment from "../../pages/Drawer/PdrAppointment";
 import CanteenList from "../../pages/Drawer/CanteenList";
 import ParentAndStudent from "../../pages/Drawer/ParentAndStudent";
@@ -47,7 +47,7 @@ const DrawerNav = () =>{
        <Drawer.Screen name={"ClassPrograms"} component={ClassPrograms} options={{
          drawerLabel: "Ders Programı"
        }} />
-       <Drawer.Screen name={"Voting"} component={Voting} options={{
+       <Drawer.Screen name={"Surveys"} component={Surveys} options={{
          drawerLabel: "Anketler"
        }} />
        <Drawer.Screen name={"PdrAppointment"} component={PdrAppointment} options={{

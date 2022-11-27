@@ -24,7 +24,12 @@ const NavigationController = () =>{
             }
           })
           const reqData = await req.json()
-          dispatch(login({token: accessToken, userId: reqData?.data?.userId, studentNumber: reqData?.data.studentNumber}))
+          dispatch(login({
+            token: accessToken,
+            userId: reqData?.data?.userId,
+            studentNumber: reqData?.data.studentNumber,
+            name: reqData?.data?.name
+          }))
         }
       } catch (e) {
         console.log(e)
