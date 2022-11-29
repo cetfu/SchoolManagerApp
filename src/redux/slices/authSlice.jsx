@@ -17,8 +17,14 @@ const authSlice = createSlice({
       state.studentNumber = action.payload.studentNumber
       state.name = action.payload.name
     },
+    logout: (state) =>{
+      state.accessToken = ""
+      state.userId = 0
+      state.studentNumber = 0
+      state.name = ""
+    }
   },
 });
 
-export const { login } = authSlice.actions;
+export const { login, logout } = authSlice.actions;
 export default authSlice.reducer;

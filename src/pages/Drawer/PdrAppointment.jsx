@@ -2,10 +2,10 @@ import React, { useCallback, useState } from "react";
 import { useFocusEffect, useTheme } from "@react-navigation/native";
 import { API_URL, DEFAULT_HEADERS, WIDTH } from "../../constants";
 import { useSelector } from "react-redux";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 
-const PdrAppointment = () => {
+const PdrAppointment = ({navigation}) => {
 
   const authState = useSelector(state => state.auth);
   const [appointments, setAppointments] = useState([]);
@@ -42,7 +42,11 @@ const PdrAppointment = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity activeOpacity={0.9} style={[styles.button, { backgroundColor: colors.button }]}>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("NewPdrAppointment")
+        }}
+        activeOpacity={0.9} style={[styles.button, { backgroundColor: colors.button }]}>
         <Text style={[styles.button.text, { color: colors.secondary }]}>
           Yeni randevu
         </Text>

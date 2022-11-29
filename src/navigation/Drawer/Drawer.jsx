@@ -12,6 +12,7 @@ import PdrAppointment from "../../pages/Drawer/PdrAppointment";
 import CanteenList from "../../pages/Drawer/CanteenList";
 import ParentAndStudent from "../../pages/Drawer/ParentAndStudent";
 import WishForms from "../../pages/Drawer/WishForms";
+import PdrStack from "../Stacks/Pdr/PdrStack";
 
 const Drawer = createDrawerNavigator()
 
@@ -50,9 +51,9 @@ const DrawerNav = () =>{
        <Drawer.Screen name={"Surveys"} component={Surveys} options={{
          drawerLabel: "Anketler"
        }} />
-       <Drawer.Screen name={"PdrAppointment"} component={PdrAppointment} options={{
-         drawerLabel: "Rehberlik Servisi"
-       }} />
+       {/*<Drawer.Screen name={"PdrAppointment"} component={PdrStack} options={{*/}
+       {/*  drawerLabel: "Rehberlik Servisi"*/}
+       {/*}} />*/}
        <Drawer.Screen name={"CanteenList"} component={CanteenList} options={{
          drawerLabel: "Kantin Fiyat Listesi"
        }} />

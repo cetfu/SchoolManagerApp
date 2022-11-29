@@ -11,7 +11,6 @@ const Survey = ({ item, onSubmit }) => {
 
   const [answers, setAnswers] = useState(item.surveyOptions.map(() => false));
 
-
   const surveyDate = (new Date(item.date)).toLocaleString("tr-TR");
   const { colors } = useTheme();
   const headerTextStyle = [styles.surveyHeader.text, { color: colors.primaryText }];
@@ -22,32 +21,32 @@ const Survey = ({ item, onSubmit }) => {
         <Text style={headerTextStyle}>{item.surveySender}</Text>
         <Text style={headerTextStyle}>{surveyDate}</Text>
       </View>
-      <View style={styles.surveyContent}>
+      <View style={[styles.surveyContent, { minHeight: answers.length * 75 }]}>
         <Text style={[styles.surveyContent.text, { color: colors.primaryText }]}>{item.surveyTitle}</Text>
         <FlashList
           estimatedItemSize={10}
           extraData={answers}
-          renderItem={({item, index: i}) =>(
+          renderItem={({ item, index: i }) => (
             <View key={i} style={styles.surveyOption}>
               <TouchableOpacity
-                onPress={() =>{
+                onPress={() => {
                   setAnswers(ans => {
-                    return ans.map((_, si) => si === i)
-                  })
+                    return ans.map((_, si) => si === i);
+                  });
                 }}
                 style={{
                   width: 15, height: 15,
                   backgroundColor: answers[i] === true ? colors.button : null,
                   borderWidth: !answers[i] === true ? 2 : null,
-                  marginHorizontal: 10
+                  marginHorizontal: 10,
                 }} />
-              <Text style={[styles.surveyOption.text, {color: colors.primaryText}]}>{item.key}</Text>
+              <Text style={[styles.surveyOption.text, { color: colors.primaryText }]}>{item.key}</Text>
             </View>
           )}
           data={item.surveyOptions}
         />
-        <TouchableOpacity onPress={() =>{
-          onSubmit({surveyId: item.surveyId, answers})
+        <TouchableOpacity onPress={() => {
+          onSubmit({ surveyId: item.surveyId, answers });
         }} style={{
           width: WIDTH / 2,
           height: 45,
@@ -55,9 +54,9 @@ const Survey = ({ item, onSubmit }) => {
           alignSelf: "center",
           borderRadius: 10,
           justifyContent: "center",
-          alignItems: "center"
+          alignItems: "center",
         }}>
-          <Text style={[styles.surveyOption.text, {color: colors.secondary}]}>Cevabı gönder!</Text>
+          <Text style={[styles.surveyOption.text, { color: colors.secondary }]}>Cevabı gönder!</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -96,14 +95,34 @@ const Surveys = () => {
     }, []),
   );
 
-  const surveyOnSubmit = (data) => {
-    console.log(data)
+  const surveyOnSubmit =  async (data) => {
+    let l = data.answers.length
+    let a = data.answers.filter((a) => a !== true)
+    if(l === a.length || typeof data.surveyId === "undefined"){
+      console.log("cevap yok kardeş")
+      return 0
+    }
+    const req = await fetch(`${API_URL}/v1/applySurvey`, {
+      method: "POST",
+      headers: {
+        ...DEFAULT_HEADERS,
+        "Authorization": `Bearer ${authState.accessToken}`
+      },
+      body: JSON.stringify({
+        userId: authState.userId,
+        surveyId: data.surveyId,
+        userAnswers: data.answers
+      })
+    })
+    const rdata = await req.json()
+    setMessage(rdata.message)
   };
 
 
   return (
     <View style={styles.container}>
       {message && <WarningText>{message}</WarningText>}
+
       <FlashList
         estimatedItemSize={10}
         renderItem={(props) => (<Survey {...props} onSubmit={surveyOnSubmit} />)}
@@ -119,14 +138,13 @@ const styles = StyleSheet.create({
   },
   survey: {
     width: WIDTH,
-    minHeight: 100,
-    backgroundColor: "red",
     marginVertical: 10,
   },
   surveyHeader: {
     flexDirection: "row",
+    width: WIDTH,
     justifyContent: "space-between",
-    marginHorizontal: 20,
+    paddingHorizontal: 20,
     marginVertical: 10,
     text: {
       fontSize: 15,
@@ -134,7 +152,6 @@ const styles = StyleSheet.create({
     },
   },
   surveyContent: {
-    flex: 1,
     text: {
       fontSize: 20,
       alignSelf: "center",
@@ -151,8 +168,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     text: {
       fontSize: 16,
-      fontFamily: "SecularOne"
-    }
+      fontFamily: "SecularOne",
+    },
   },
 });
 

@@ -8,6 +8,7 @@ import Microphone from "../../assets/microphone.svg"
 import Main from "../../assets/home.svg"
 import DrawerNav from "../Drawer/Drawer";
 import PdrAnnouncements from "../../pages/Tab/PdrAnnouncements";
+import ProfileStack from "../Stacks/Profile/ProfileStack";
 
 const Tab = createBottomTabNavigator()
 
@@ -59,8 +60,8 @@ const MainTab = () =>{
          }}
        />
        <Tab.Screen
-         name={"Profile"}
-         component={ProfilePage}
+         name={"ProfileStack"}
+         component={ProfileStack}
          options={{
            tabBarIcon: ({focused}) =>(
              <>

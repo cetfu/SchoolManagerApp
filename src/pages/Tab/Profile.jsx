@@ -1,15 +1,19 @@
 import React, { useCallback } from "react";
 import { useFocusEffect, useTheme } from "@react-navigation/native";
-import { useSelector } from "react-redux";
-import { StyleSheet, Text, View } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { HEIGHT, WIDTH } from "../../constants";
 import ProfileImage from "../../assets/person.svg"
+import Button from "../../components/Button";
+import EncryptedStorage from "react-native-encrypted-storage";
+import { logout } from "../../redux/slices/authSlice";
 
-const Profile = () =>{
+
+const Profile = ({navigation}) =>{
 
   const authState = useSelector(state => state.auth)
   const {colors} = useTheme()
-
+  const dispatch = useDispatch()
   useFocusEffect(
     useCallback(() =>{
 
@@ -32,6 +36,18 @@ const Profile = () =>{
           {authState.studentNumber ? <Text style={[styles.credentialTexts, {color: colors.primaryText}]}>Okul numarası: {authState.studentNumber}</Text> : null}
         </View>
       </View>
+      <Button
+        width={WIDTH / 1.1}
+        height={75}
+        textColor={colors.secondary}
+        center={true}
+        backgroundColor={colors.button}
+        onPress={async () =>{
+         // navigation.navigate("Absenteeism")
+          await EncryptedStorage.removeItem("accessToken")
+          dispatch(logout())
+        }}
+      >{/**DEVAMSIZLIK TAKİP**/}ÇIKIŞ YAP</Button>
     </View>
   )
 }
